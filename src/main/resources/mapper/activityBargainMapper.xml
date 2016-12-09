@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+    <mapper namespace="ActivityBargainMapper">  
+    
+    <select id="findActivitiesInfoById" parameterType="int" resultType="ActivityBargainEntity">
+        SELECT 
+        	id,
+        	title,
+        	description,
+        	image,
+        	is_available as isAvailable,
+        	account_id as accountId,
+        	left_count as leftCount,
+        	login_time as loginTime,
+        	share_count as shareCount,
+        	create_time as createTime
+        	
+        FROM 
+        	activity_bargain 
+        WHERE 
+        	id=#{id} LIMIT 1
+    </select>
+    
+    <update id="updateLeftCount" parameterType="map">
+    	UPDATE activity_bargain
+    	<trim prefix="SET" suffixOverrides=",">
+    		<if test="leftCount != null">left_count=#{leftCount}</if>
+    	</trim>
+		WHERE id=#{id}
+    </update>
+</mapper>  
